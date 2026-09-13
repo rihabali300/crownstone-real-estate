@@ -1,0 +1,462 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+/*
+ * Crownstone Real Estate — design system
+ * Dark luxury palette. Gold used strictly as an accent.
+ * All colors in oklch. Never hardcode colors in components.
+ */
+
+@theme inline {
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: 4px;
+  --radius-xl: 6px;
+  --radius-2xl: 8px;
+  --radius-3xl: 12px;
+  --radius-4xl: 16px;
+
+  --font-display: "Cormorant Garamond", ui-serif, Georgia, serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --ease-lux: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root {
+  --background: oklch(0.145 0 0);
+  --surface: oklch(0.178 0 0);
+  --foreground: oklch(0.965 0 0);
+  --card: oklch(0.211 0 0);
+  --card-foreground: oklch(0.965 0 0);
+  --popover: oklch(0.178 0 0);
+  --popover-foreground: oklch(0.965 0 0);
+  --primary: oklch(0.757 0.128 87.5);
+  --primary-foreground: oklch(0.145 0 0);
+  --gold: oklch(0.757 0.128 87.5);
+  --gold-soft: oklch(0.83 0.106 89);
+  --secondary: oklch(0.211 0 0);
+  --secondary-foreground: oklch(0.965 0 0);
+  --muted: oklch(0.211 0 0);
+  --muted-foreground: oklch(0.72 0 0);
+  --accent: oklch(0.24 0 0);
+  --accent-foreground: oklch(0.965 0 0);
+  --destructive: oklch(0.62 0.2 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: oklch(0.757 0.128 87.5);
+
+  --shadow-lux: 0 24px 60px -24px oklch(0 0 0 / 80%);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  .font-display {
+    font-family: var(--font-display);
+    font-weight: 300;
+    letter-spacing: -0.01em;
+  }
+
+  ::selection {
+    background: var(--color-gold);
+    color: var(--color-primary-foreground);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 2px;
+  }
+}
+
+/* Small uppercase luxury label */
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  color: var(--color-gold);
+}
+
+@utility eyebrow-muted {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  color: var(--color-muted-foreground);
+}
+
+@utility hairline {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    var(--color-gold),
+    oklch(1 0 0 / 0%)
+  );
+}
+
+@utility glass-panel {
+  background: oklch(0.145 0 0 / 72%);
+  backdrop-filter: blur(16px) saturate(140%);
+  border-bottom: 1px solid var(--color-border);
+}
+
+@utility glass-card {
+  background: oklch(0.178 0 0 / 70%);
+  backdrop-filter: blur(18px) saturate(130%);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-lux);
+}
+
+@utility gold-underline {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    height: 1px;
+    width: 100%;
+    transform: scaleX(0);
+    transform-origin: left;
+    background: var(--color-gold);
+    transition: transform 450ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  &:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+@utility reveal-hidden {
+  opacity: 0;
+  transform: perspective(1100px) translate3d(0, 28px, -24px) rotateX(2deg);
+  transform-origin: center top;
+}
+
+@utility reveal-shown {
+  opacity: 1;
+  transform: perspective(1100px) translate3d(0, 0, 0) rotateX(0);
+  transition:
+    opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Restrained depth system. Values are unitless and updated only on fine pointers. */
+.hero-scene,
+.property-depth-card,
+.gallery-depth {
+  --depth-x: 0;
+  --depth-y: 0;
+}
+
+.hero-scene {
+  perspective: 1200px;
+}
+
+.hero-depth-background {
+  transform: scale(1.07)
+    translate3d(
+      calc(var(--depth-x) * -5px),
+      calc(var(--depth-y) * -3px),
+      0
+    );
+  transition: transform 900ms var(--ease-lux);
+  will-change: transform;
+}
+
+.hero-depth-content {
+  transform: translate3d(
+      calc(var(--depth-x) * 4px),
+      calc(var(--depth-y) * 2px),
+      28px
+    )
+    rotateY(calc(var(--depth-x) * 0.18deg))
+    rotateX(calc(var(--depth-y) * -0.12deg));
+  transform-style: preserve-3d;
+  transition: transform 700ms var(--ease-lux);
+  will-change: transform;
+}
+
+.hero-architectural-lines {
+  opacity: 0.2;
+  transform: translate3d(calc(var(--depth-x) * 9px), 0, 0);
+  transition: transform 1000ms var(--ease-lux);
+}
+
+.hero-architectural-lines span {
+  position: absolute;
+  display: block;
+  border: 1px solid color-mix(in oklab, var(--color-gold) 28%, transparent);
+  transform: rotate(45deg);
+}
+
+.hero-architectural-lines span:nth-child(1) {
+  right: 7%;
+  top: 22%;
+  width: 15rem;
+  height: 15rem;
+}
+
+.hero-architectural-lines span:nth-child(2) {
+  right: 17%;
+  top: 12%;
+  width: 8rem;
+  height: 8rem;
+}
+
+.hero-architectural-lines span:nth-child(3) {
+  left: 47%;
+  bottom: 8%;
+  width: 4rem;
+  height: 4rem;
+}
+
+.property-depth-card {
+  transform: perspective(1000px)
+    rotateX(calc(var(--depth-y) * -2.4deg))
+    rotateY(calc(var(--depth-x) * 2.4deg))
+    translate3d(0, 0, 0);
+  transform-style: preserve-3d;
+  box-shadow: 0 18px 48px -34px oklch(0 0 0 / 80%);
+  will-change: transform;
+}
+
+.property-depth-card:hover {
+  transform: perspective(1000px)
+    rotateX(calc(var(--depth-y) * -2.4deg))
+    rotateY(calc(var(--depth-x) * 2.4deg))
+    translate3d(0, -4px, 16px);
+  box-shadow: 0 30px 64px -32px oklch(0 0 0 / 90%);
+}
+
+.property-depth-media {
+  transform: translateZ(10px);
+}
+
+.property-depth-favorite {
+  transform: translateZ(40px);
+}
+
+.property-depth-image {
+  transform: scale(1.025) translate3d(
+      calc(var(--depth-x) * -3px),
+      calc(var(--depth-y) * -2px),
+      0
+    );
+}
+
+.property-depth-card:hover .property-depth-image {
+  transform: scale(1.06) translate3d(
+      calc(var(--depth-x) * -3px),
+      calc(var(--depth-y) * -2px),
+      0
+    );
+}
+
+.gallery-depth {
+  perspective: 1200px;
+}
+
+.gallery-depth-frame {
+  transform: rotateX(calc(var(--depth-y) * -0.8deg))
+    rotateY(calc(var(--depth-x) * 0.8deg));
+  transform-style: preserve-3d;
+  transition: transform 650ms var(--ease-lux), box-shadow 650ms var(--ease-lux);
+  box-shadow: 0 26px 64px -36px oklch(0 0 0 / 90%);
+  will-change: transform;
+}
+
+.gallery-depth-image {
+  transform: scale(1.018) translate3d(
+      calc(var(--depth-x) * -2px),
+      calc(var(--depth-y) * -1px),
+      0
+    );
+  transition: transform 700ms var(--ease-lux), opacity 300ms ease;
+}
+
+.gallery-depth-thumb {
+  transform: translateZ(0);
+  transition: transform 400ms var(--ease-lux), border-color 300ms ease;
+}
+
+.gallery-depth-thumb:hover {
+  transform: translate3d(0, -2px, 8px);
+}
+
+@media (max-width: 767px) {
+  .hero-depth-background {
+    transform: scale(1.045);
+  }
+
+  .hero-depth-content,
+  .property-depth-card,
+  .property-depth-card:hover,
+  .gallery-depth-frame {
+    transform: none;
+  }
+
+  .property-depth-card {
+    transform-style: flat;
+    will-change: auto;
+  }
+
+  .property-depth-media {
+    transform: none;
+  }
+
+  .property-depth-favorite {
+    transform: none;
+    pointer-events: auto;
+  }
+
+  .property-depth-card:active {
+    transform: scale(0.992);
+  }
+
+  .hero-architectural-lines {
+    opacity: 0.12;
+  }
+}
+
+@keyframes hero-zoom {
+  from {
+    transform: scale(1.06);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes scroll-line {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  50% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  51% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+
+@keyframes soft-pulse {
+  0%,
+  88%,
+  100% {
+    box-shadow: 0 0 0 0 oklch(0.757 0.128 87.5 / 45%);
+  }
+  94% {
+    box-shadow: 0 0 0 12px oklch(0.757 0.128 87.5 / 0%);
+  }
+}
+
+@utility animate-hero-zoom {
+  animation: hero-zoom 2400ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@utility animate-rise {
+  animation: rise-in 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@utility animate-scroll-line {
+  animation: scroll-line 2600ms cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+@utility animate-soft-pulse {
+  animation: soft-pulse 5s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .hero-depth-background,
+  .hero-depth-content,
+  .hero-architectural-lines,
+  .property-depth-card,
+  .property-depth-card:hover,
+  .property-depth-image,
+  .property-depth-card:hover .property-depth-image,
+  .property-depth-favorite,
+  .gallery-depth-frame,
+  .gallery-depth-image,
+  .gallery-depth-thumb,
+  .gallery-depth-thumb:hover,
+  .reveal-hidden,
+  .reveal-shown {
+    transform: none !important;
+  }
+
+  .reveal-hidden,
+  .reveal-shown {
+    opacity: 1;
+  }
+}
